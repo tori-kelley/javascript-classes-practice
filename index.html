@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 id="title">Classes: The Basics </h2>
+
+
+    <script>
+        /*
+        Class -> Object
+        instance properties: what they have
+        instance method: what they do
+        */
+
+
+        class Rectangle {
+            constructor (_width,_height,_color) {
+                console.log("making a rectangle!")
+                this.width = _width;
+                this.height = _height;
+                this.color = _color;
+            }
+
+            getArea () {
+                return this.width * this.height;
+            }
+
+            printDescription () {
+                console.log(`I am a rectangle of ${this.width} x ${this.height} and I am ${this.color}.`)
+            }
+        }
+
+        class Square {
+            constructor (_width) {
+                this.width = _width;
+                this.height = _width;
+                this.numOfRequestsForArea = 0;
+            }
+
+            get area () {
+                this.numOfRequestsForArea++;
+                return this.width ** 2;
+            }
+
+            set area (area) {
+                this.width = area**(0.5);
+                this.height = this.width;
+            }
+        }
+
+
+    </script>
+</body>
+</html>
