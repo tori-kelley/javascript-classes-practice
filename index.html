@@ -7,9 +7,13 @@
 </head>
 <body>
     <h2 id="title">Classes: The Basics </h2>
+    
+    <ul id="myList"> 
+        <!-- to be filled w js -->
+    </ul>
 
-
-    <script>
+    <script src="listBindings.js"></script>
+    <script type="text/javascript">
         /*
         Class -> Object
         instance properties: what they have
@@ -50,7 +54,69 @@
                 this.width = area**(0.5);
                 this.height = this.width;
             }
+
+            static equals (a, b) {
+                return a.width * a.height === b.width * b.height;
+            }
+            
+            static isValidDimensions (width, height) {
+                return width === height;
+            }
         }
+
+        class Person {
+            constructor (_name, _age) {
+                this.name = _name;
+                this.age = _age;
+            }
+
+            describe () {
+                console.log(`I am ${this.name} and I am ${this.age} years old.`);
+            }
+
+        }
+
+        class Programmer extends Person {
+            constructor (_name, _age, _yearsOfExperience) {
+                super(_name, _age);
+
+                //custom behavior
+                this.yearsOfExperience = _yearsOfExperience;
+            }
+
+            code () {
+                console.log(`${this.name} is coding.`)
+            }
+        }
+
+        function developSoftware (programmers) {
+            for (let programmer of programmers) {
+                programmer.code();
+            }
+        }
+
+        class Animal {
+            constructor (_name) {
+                this.name = _name;
+            }
+
+            makeSound () {
+                console.log("generic animal sound");
+            }
+        }
+
+        class Dog extends Animal {
+            constructor (name) {
+                super(name);
+            }
+
+            makeSound () {
+                console.log("woof");
+            }
+        }
+
+        const myList = document.getElementById("myList");
+        const listBinding = new ListBinding(myList);
 
 
     </script>
