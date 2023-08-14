@@ -1,0 +1,87 @@
+class ObjectWMass {
+    constructor (startX,startY, radius, color) {
+        this.startX = startX;
+        this.x = startX;
+        this.startY = startY;
+        this.y = startY;
+        this.r = radius;
+        this.VY = 0;
+        this.color = color;
+        this.gravity = 9.8;
+        this.show();
+    }
+    show () {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        ctx.fillStyle = `${this.color}`;  // Circle color
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    move (start) {
+        const rn = new Date();
+        this.VY += this.gravity * (rn.getMilliseconds() - start.getMilliseconds());
+        this.y += this.VY;
+        console.log(this.y);
+    }
+
+    fall () {
+        const start = new Date();
+        while (this.y < 750) {
+            this.move(start);
+            this.show();
+        }
+        console.log("done");
+    }
+
+    reset () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.x = this.startX;
+        this.y = this.startY;
+        this.VY = 0;
+        this.show();
+    }
+}
+class Projectile extends ObjectWMass {
+    constructor(startX, startY, radius, color, startVX, startVY) {
+        super(startX, startY, radius, color);
+        this.VX = startVX;
+        this.startVX = startVX;
+        this.VY = startVY;
+        this.startVY = startVY;
+    }
+
+    project () {
+        this.x += this.VX;
+    }
+
+    shoot () {
+        const start = new Date();
+        while (this.y < 750) {
+            this.move(start);
+            this.project(start);
+            this.show();
+        }
+        console.log("done");
+    }
+
+    reset () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.x = this.startX;
+        this.y = this.startY;
+        this.VX = this.startVX;
+        this.VY = this.startVY;
+        this.show();
+    }
+}
+
+// Get the canvas element
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+const myWeight = new ObjectWMass(400, 20, 20, "red");
+const myBall = new Projectile(50, 600, 10, "blue", 20, -50);
+const otherBall = new Projectile(1100, 700, 25, "green", -40, -30);
+
+//to see the trajectory, in the console type myWeight.fall() or myBall.shoot()
+
